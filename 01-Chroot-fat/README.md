@@ -85,3 +85,43 @@ ln -s nginx-XXX nginx
 apt-get install curl
 curl http://node1.lab.local
 ```
+
+# Part 2: Fat chroot
+
+1. Create a directory to create the fat Nginx chroot:
+
+```bash
+mkdir -p /chroot/fat
+```
+
+2. Install and use debootstrap to put a stable Debian system in a target directory:
+
+```bash
+apt-get install debootstrap
+debootstrap stable /chroot/fat/
+```
+
+4. Copy our /opt/nginx-XXX to /chroot/fat/opt/
+
+```bash
+cp -r /opt/nginx-XXX to /chroot/fat/opt/
+```
+
+5. Change the content of index.html of the chrooted Nginx:
+
+```bash
+echo "In chroot" > /chroot/fat/opt/nginx-XXX/html/index.html
+```
+
+7. Use chroot to chroot a bash in /chroot/fat :
+chroot /chroot/fat /bin/bash
+8. Check the content of /opt/nginx-1.22.0/html/index.html.
+9. Re-create the symlink inside the fat chroot.
+10. Re-create the nginx system account inside the fat chroot.
+11. Exit the fat chroot and launch a chrooted nginx :
+chroot /chroot/fat /opt/nginx/sbin/nginx
+12. Get the UID used by nginx. Is there a problem ?
+13. Delete the nginx user in the chroot and create a new one with another UID :
+groupadd -g 3000 nginx
+useradd -r -d /var/empty -s /bin/false -u 3000 -g 3000 nginx
+```
