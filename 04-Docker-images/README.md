@@ -5,16 +5,16 @@
 ```bash
 root@node1:~# mkdir -p dockerfiles/mynginx-debian
 root@node1:~# cd dockerfiles/mynginx-debian
-root@node1:~/dockerfiles/mynginx-debian# cp -pr /chroot/fat/opt/nginx-1.28.0 ./
+root@node1:~/dockerfiles/mynginx-debian# cp -pr /chroot/fat/opt/nginx-XXX ./
 ```
 
 ```bash
 root@node1:~/dockerfiles/mynginx-debian# cat Dockerfile
 FROM debian:latest
 
-COPY nginx-1.28.0 /opt/nginx-1.28.0
+COPY nginx-XXX /opt/nginx-XXX
 
-RUN ln -s /opt/nginx-1.28.0 /opt/nginx && \
+RUN ln -s /opt/nginx-XXX /opt/nginx && \
   useradd -r -d /var/empty -s /bin/false nginx
 
 EXPOSE 80
