@@ -66,3 +66,12 @@ root@node1:~/dockerfiles/mynginx-scratch# docker run mynginxthin:1
 root@node1:~/dockerfiles/mynginx-scratch# curl 172.17.0.2
 In thin chroot
 ```
+
+3. Images size.
+
+```bash
+root@node1:~# docker image ls
+REPOSITORY    TAG       IMAGE ID       CREATED          SIZE
+mynginxthin   1         106518801416   8 minutes ago    6.22MB
+mynginx       1         31d89c6ac8ab   20 minutes ago   120MB
+```
