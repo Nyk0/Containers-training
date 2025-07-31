@@ -73,6 +73,22 @@ root@4e7a34f764d9:/# cat toto.text
 hello
 ```
 
+Using volumes:
+
+```bash
+root@node1:~# docker volume create myvol
+myvol
+root@node1:~# docker run -v myvol:/ext -ti debian /bin/bash
+root@204d8ce32dad:/# echo "hi !" > /ext/toto.text
+root@204d8ce32dad:/# cat /ext/toto.text
+hi !
+root@204d8ce32dad:/# exit
+exit
+root@node1:~# docker run -v myvol:/ext -ti debian /bin/bash
+root@88797e52da3a:/# cat /ext/toto.text
+hi !
+```
+
 5. Network backend
 
 ```bash
@@ -281,3 +297,5 @@ root@frontal:~# curl http://node1.lab.local
 <title>Welcome to nginx!</title>
 ...
 ```
+
+
