@@ -17,11 +17,14 @@ root@node1:~# cp -r /opt/nginx-XXX /chroot/thin/opt/
 root@node1:~# echo "In thin chroot" > /chroot/thin/opt/nginx-XXX/html/index.html
 
 4. Analyze libraries dependencies of Nginx binary:
+
+```bash
 root@node1:~# ldd /chroot/thin/opt/nginx-XXX/sbin/nginx
   linux-vdso.so.1 (0x00007ffc9e5e0000)
   libcrypt.so.1 => /lib/x86_64-linux-gnu/libcrypt.so.1 (0x00007f3668fe5000)
   libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3668e04000)
   /lib64/ld-linux-x86-64.so.2 (0x00007f3669108000)
+```
 
 5. Re-create the library hierarchy inside the thin chroot directory but beware:
 
@@ -79,13 +82,13 @@ root@node1:~# cd /chroot/thin/opt/
 root@node1:/chroot/thin/opt# ln -s nginx-XXX nginx
 ```
 
-9. Try to run it :
+8. Try to run it :
 
 ```bash
 root@node1:~# chroot /chroot/thin /opt/nginx/sbin/nginx
 ```
 
-10. Test from frontend
+9. Test from frontend
 
 ```bash
 root@frontal:~# curl http://node1.lab.local
