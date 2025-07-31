@@ -119,7 +119,7 @@ root@node1:~# cp -r /opt/nginx-XXX to /chroot/fat/opt/
 5. Change the content of index.html of the chrooted Nginx:
 
 ```bash
-root@node1:~# echo "In chroot" > /chroot/fat/opt/nginx-XXX/html/index.html
+root@node1:~# echo "In fat chroot" > /chroot/fat/opt/nginx-XXX/html/index.html
 ```
 
 7. Use chroot to chroot a bash in /chroot/fat:
