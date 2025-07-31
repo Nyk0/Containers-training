@@ -230,3 +230,54 @@ root@node1:~# curl 172.17.0.2
 
 9. Exposing container's layer 4 to the host interfaces.
 
+Exit and restart nginx container like this:
+
+```bash
+root@node1:~# docker run -P nginx
+```
+
+```bash
+root@node1:~# docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS                                       NAMES
+e1ab6761c05f   nginx     "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:32768->80/tcp, [::]:32768->80/tcp   gracious_elgamal
+```
+
+```bash
+root@node1:~# netstat -laputn | grep 32768
+tcp        0      0 0.0.0.0:32768           0.0.0.0:*               LISTEN      3813/docker-proxy
+tcp6       0      0 :::32768                :::*                    LISTEN      3818/docker-proxy
+```
+
+Test from a remote host:
+
+```bash
+root@frontal:~# curl http://node1.lab.local:32768
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+...
+```
+
+Exit and restart nginx container like this:
+
+```bash
+root@node1:~# docker run --network="host" nginx
+```
+
+```bash
+root@node1:~# netstat -laputn | grep nginx
+tcp  0  0 0.0.0.0:80  0.0.0.0:*  LISTEN  4000/nginx: master
+tcp6  0  0  :::80  :::*  LISTEN  4000/nginx: master
+```
+
+Test from a remote host:
+
+```bash
+root@frontal:~# curl http://node1.lab.local
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+...
+```
