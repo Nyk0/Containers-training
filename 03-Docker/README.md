@@ -1,4 +1,4 @@
-# Nginx in Docker
+# Basic Docker operations
 
 1. Follow instructions here:
 
